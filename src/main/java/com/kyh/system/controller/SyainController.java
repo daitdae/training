@@ -65,8 +65,7 @@ public class SyainController {
 
 	//한명의 정보 조회
 	@GetMapping("/syain_selectOne")
-	public String selectOne(int syainId, Model model) {
-
+	public String selectOne(@RequestParam int syainId, Model model) {
 		SyainVO syain = syainservice.selectOne(syainId);
 		//model에 객체 추가
 		model.addAttribute("syain",syain);
@@ -77,7 +76,7 @@ public class SyainController {
 
 	//update
 	@GetMapping("/syain_update")
-	public String update(int syainId, Model model) {
+	public String update(@RequestParam int syainId, Model model) {
 		SyainVO syain = syainservice.selectOne(syainId);
 		model.addAttribute("syain", syain);
 		return "syain/syain_update";
@@ -91,7 +90,7 @@ public class SyainController {
 
 	//삭제
 	@GetMapping("/syain_delete")
-	public String delete(int syainId) {
+	public String delete(@RequestParam int syainId) {
 		syainservice.delete(syainId);
 		return "redirect:/syain/syain_read";
 	}
