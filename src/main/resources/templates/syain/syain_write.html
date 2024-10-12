@@ -1,0 +1,487 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      xmlns:float="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>社内統合管理システム</title>
+</head>
+<style>
+
+    /* header css start*/
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        border-bottom: 1px solid #ccc;
+        background-color: #fff;
+        position: relative;
+    }
+    .left-section {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    .left-section .company-name-jp {
+        font-weight: bold;
+    }
+    .left-section .company-name-en {
+        font-size: 12px;
+        margin-top: 5px;
+    }
+    .center-section {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* 横, 縦　中央整列 */
+        font-size: 30px; /* font size */
+        font-weight: bold;
+    }
+    .right-section img {
+        max-height: 40px;
+    }
+
+    h2 {
+        background-color: #ccc;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .section-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .section-title-skill {
+        font-weight: bold;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+        display: inline-block;
+        width: 100%;
+    }
+    .section-title-skill p {
+        float: right;
+        margin: 0;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+    label {
+        margin-right: 10px;
+    }
+    input[type="text"] {
+        width: 150px;
+        padding: 5px;
+        margin-right: 10px;
+    }
+    .required {
+        color: red;
+        margin-left: 10px;
+    }
+    /* header css end*/
+
+
+    h2 {
+        background-color: #ccc;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .section-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    label {
+        margin-right: 10px;
+    }
+    input[type="text"] {
+        width: 150px;
+        padding: 5px;
+        margin-right: 10px;
+    }
+    .required {
+        color: red;
+        margin-left: 10px;
+    }
+    .SEIBETU {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    /*給与テーブル関連CSS start*/
+    #kyuuyo-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    #kyuuyo-table th, #kyuuyo-table td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+    }
+    #kyuuyo-table th {
+        background-color: lightblue;
+    }
+    .red-text {
+        color: red;
+    }
+    /*給与テーブル関連CSS end*/
+
+    /*技術テーブル関連CSS start*/
+    #itOs {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    #itOs th, #itOs td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+    }
+    #itOs th {
+        background-color: lightblue;
+    }
+    #itOs td.select-cell select {
+        width: 100%;
+    }
+    /*技術テーブル関連CSS end*/
+
+    /*参考及び自己アピールテーブル関連CSS start*/
+    #itBikouTable{
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+    }
+    #itBikouTable td, #itBikouTable th {
+        border: 1px solid black;
+        padding: 8px;
+    }
+    #itBikouTable th {
+        background-color: lightblue;
+        text-align: left;
+        width: 200px;
+    }
+    #itBikouTable .textarea-cell {
+        width: 100%;
+    }
+    #itBikouTable .no-border {
+        border-top: none;
+        border-right: none;
+    }
+    #itBikouTable textarea {
+        width: 100%;
+        height: 100px;
+        border: none;
+        resize: none;
+    }
+    /*参考及び自己アピールテーブル関連CSS end*/
+
+    /*ボタンのCSS　start*/
+    .container {
+        display: flex;
+        justify-content: center; /* 가로 중앙 정렬 */
+        align-items: center; /* 세로 중앙 정렬 */
+        margin: 50px auto; /* 상단 여백과 화면 가운데에 위치 */
+    }
+
+    .button {
+        background-color: #b0c7e2; /* 배경색 */
+        color: black; /* 글자 색 */
+        border: transparent; /* 테두리 색 */
+        padding: 10px 20px; /* 버튼 안쪽 여백 */
+        border-radius: 5px; /* 모서리 둥글게 */
+        font-size: 20px; /* 글자 크기 */
+        font-family: 'Arial', sans-serif; /* 글꼴 */
+        text-align: center;
+        box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    .button:hover {
+        background-color: #a0b7d2; /* 마우스를 올렸을 때 색상 변화 */
+    }
+    /*ボタンのCSS　end*/
+</style>
+
+<body>
+    <header>
+        <div class="left-section">
+            <div class="company-name-jp">株式会社ブライトスター</div>
+            <div class="company-name-en">BRIGHT STAR CO. LTD.</div>
+        </div>
+        <div class="center-section">社内統合管理システム</div>
+        <div class="right-section">
+            <img src="/path/to/logo.png" alt="Bright Star logo" />
+        </div>
+    </header>
+
+    <form th:action="@{/syain/syain_write}"  method="post"
+          enctype="multipart/form-data">
+    <h2>■ 社員登録</h2>
+
+    <div class="section-title">基本情報</div>
+
+    <div class="form-group">
+        <label for="employeeCode">社員コード:</label>
+        <input type="text" id="employeeCode" name="employeeCode" />
+    </div>
+
+    <div class="form-group">
+        <label for="firstNameKanji">社員名（漢字）:</label>
+        <input type="text" id="firstNameKanji" name="firstNameKanji" placeholder="姓" />
+        <input type="text" id="lastNameKanji" name="lastNameKanji" placeholder="名" />
+        <span class="required">必須</span>
+    </div>
+
+    <div class="SEIBETU">
+        <label>性別:</label>
+        <input type="radio" id="seibetuMale" name="seibetu" value="1" />
+        <label for="seibetuMale">男</label>
+        <input type="radio" id="seibetuFemale" name="seibetu" value="2" />
+        <label for="seibetuFemale">女</label>
+    </div>
+
+    <br />
+
+    <div class="section-title">会社関連情報</div>
+
+    <!-- 所属会社 -->
+    <div class="form-group">
+        <label for="syozokuKaisya">所属会社:</label>
+        <select id="syozokuKaisya" name="syozokuKaisya">
+            <option value="1">株式会社ブライトスター</option>
+            <option value="2">株式会社トップクラウド</option>
+        </select>
+    </div>
+
+    <!-- 入社日 -->
+    <div class="form-group">
+        <label for="nyuusyaDate">入社日: </label>
+        <input type="date" id="nyuusyaDate" name="nyuusyaDate"/>
+    </div>
+
+    <!-- 退社日 -->
+    <div class="form-group">
+        <label for="taisyaDate">退社日: </label>
+        <input type="date" id="taisyaDate" name="taisyaDate" />※YYYY-MM-DD
+    </div>
+
+    <!-- 職業種類 -->
+    <div class="form-group">
+        <label for="syokugyoKind">職業種類:</label>
+        <select id="syokugyoKind" name="syokugyoKind">
+            <option value="1">役員</option>
+            <option value="2">総務</option>
+            <option value="3">IT営業</option>
+            <option value="4">ITエンジニア</option>
+            <option value="5">不動産スタッフ</option>
+            <option value="6">個人事業主</option>
+        </select>
+    </div>
+
+    <br />
+
+    <div class="section-title">給与関連情報</div>
+
+    <table id="kyuuyo-table">
+        <tr>
+            <th class="red-text">金融機関コード</th>
+            <th class="red-text">金融機関名</th>
+            <th class="red-text">支店名コード</th>
+            <th class="red-text">支店名</th>
+            <th class="red-text">口座種類</th>
+            <th class="red-text">口座番号</th>
+            <th class="red-text">名義人</th>
+        </tr>
+        <tr>
+<!--   <td th:text="${board.inputdate}"></td>&ndash;&gt;-->
+            <td>
+                <input type="text" id="kinyukikanCode" name="kinyukikanCode" />
+            </td>
+
+            <td>
+                <input type="text" id="kinyukikanName" name="kinyukikanName" />
+            </td>
+            <td>
+                <input type="text" id="sitenCode" name="sitenCode" />
+            </td>
+            <td>
+                <input type="text" id="sitenName" name="sitenName" />
+            </td>
+            <td>
+                <input type="text" id="kouzaKind" name="kouzaKind" />
+            </td>
+            <td>
+                <input type="text" id="kouzaNum" name="kouzaNum" />
+            </td>
+            <td>
+                <input type="text" id="meigiName" name="meigiName" />
+            </td>
+        </tr>
+    </table>
+
+    <br />
+
+    <div class="section-title-skill">技術経験
+        <p>◎：実務経験１年以上 ／ ○：実務経験有り ／ △：知識有り</p>
+    </div>
+
+    <table id="itOs" name="itOs">
+        <tr>
+            <th rowspan="3">OS</th>
+            <td>DOS</td>
+            <td class="select-cell">
+                <select>
+                    <option value="◎">◎</option>
+                    <option value="○">○</option>
+                    <option value="△">△</option>
+                </select>
+            </td>
+            <td>Windows</td>
+            <td class="select-cell">
+                <select>
+                    <option value="◎">◎</option>
+                    <option value="○">○</option>
+                    <option value="△">△</option>
+                </select>
+            </td>
+
+            <td>Unix</td>
+            <td class="select-cell">
+                <select>
+                    <option value="◎">◎</option>
+                    <option value="○">○</option>
+                    <option value="△">△</option>
+                </select>
+            </td>
+            <td>Linux</td>
+            <td class="select-cell">
+                <select>
+                    <option value="◎">◎</option>
+                    <option value="○">○</option>
+                    <option value="△">△</option>
+                </select>
+            </td>
+            <td>android</td>
+            <td class="select-cell">
+                <select>
+                    <option value="◎">◎</option>
+                    <option value="○">○</option>
+                    <option value="△">△</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>IOS</td>
+            <td class="select-cell">
+                <select>
+                    <option value="◎">◎</option>
+                    <option value="○">○</option>
+                    <option value="△">△</option>
+                </select>
+            </td>
+            <td>AWS</td>
+            <td class="select-cell">
+                <select>
+                    <option value="◎">◎</option>
+                    <option value="○">○</option>
+                    <option value="△">△</option>
+                </select>
+            </td>
+            <td>SAP</td>
+            <td class="select-cell">
+                <select>
+                    <option value="◎">◎</option>
+                    <option value="○">○</option>
+                    <option value="△">△</option>
+                </select>
+            </td>
+            <td>Salesforce</td>
+            <td class="select-cell">
+                <select>
+                    <option value="◎">◎</option>
+                    <option value="○">○</option>
+                    <option value="△">△</option>
+                </select>
+            </td>
+            <td>Cosminexus</td>
+            <td class="select-cell">
+                <select>
+                    <option value="◎">◎</option>
+                    <option value="○">○</option>
+                    <option value="△">△</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>docker</td>
+            <td class="select-cell">
+                <select>
+                    <option value="◎">◎</option>
+                    <option value="○">○</option>
+                    <option value="△">△</option>
+                </select>
+            </td>
+            <td>kubernetes</td>
+            <td class="select-cell">
+                <select>
+                    <option value="◎">◎</option>
+                    <option value="○">○</option>
+                    <option value="△">△</option>
+                </select>
+            </td>
+            <td>containerd</td>
+            <td class="select-cell">
+                <select>
+                    <option value="◎">◎</option>
+                    <option value="○">○</option>
+                    <option value="△">△</option>
+                </select>
+            </td>
+
+            <td>azure</td>
+            <td class="select-cell">
+                <select>
+                    <option value="◎">◎</option>
+                    <option value="○">○</option>
+                    <option value="△">△</option>
+                </select>
+            </td>
+
+            <td></td>
+            <td class="select-cell">
+            </td>
+        </tr>
+    </table>
+
+    <br />
+
+    <table id="itBikouTable" name="itBikouTable">
+        <tr>
+            <th>備考及び自己アピール</th>
+            <td colspan="2" class="textarea-cell no-border"></td>
+        </tr>
+        <tr>
+            <td colspan="3" class="textarea-cell">
+                <textarea id="itBikou" name="itBikou"></textarea>
+            </td>
+        </tr>
+    </table>
+
+    <div class="container">
+        <button type="submit" class="button">登　　録</button>
+    </div>
+
+    </form>
+
+</body>
+
+</html>

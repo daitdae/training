@@ -1,0 +1,301 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      xmlns:float="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>社内統合管理システム</title>
+</head>
+<style>
+
+  /* header css start*/
+  body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    position: relative;
+  }
+  .left-section {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .left-section .company-name-jp {
+    font-weight: bold;
+  }
+  .left-section .company-name-en {
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  .center-section {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 横, 縦　中央整列 */
+    font-size: 30px; /* font size */
+    font-weight: bold;
+  }
+  .right-section img {
+    max-height: 40px;
+  }
+
+  h2 {
+    background-color: #ccc;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .section-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .section-title-skill {
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    display: inline-block;
+    width: 100%;
+  }
+  .section-title-skill p {
+    float: right;
+    margin: 0;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+  label {
+    margin-right: 10px;
+  }
+  input[type="text"] {
+    width: 150px;
+    padding: 5px;
+    margin-right: 10px;
+  }
+  .required {
+    color: red;
+    margin-left: 10px;
+  }
+  /* header css end*/
+
+
+  h2 {
+    background-color: #ccc;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  /*検索アリアのCSS start*/
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+  }
+  .form-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+  }
+  .form-group {
+    margin-right: 60px;
+  }
+  label {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-size: 15px;
+  }
+  select, input[type="text"] {
+    width: 150px;
+    padding: 5px;
+    font-size: 15px;
+  }
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+  }
+  .checkbox-group label {
+    margin-left: 10px;
+    font-size: 15px;
+  }
+  .checkbox-group input {
+    margin-left: 20px;
+  }
+  /*検索アリアのCSS end*/
+
+
+  /*ボタンのCSS　start*/
+  .container {
+    display: flex;
+    justify-content: left;
+    align-items: center; /* 세로 중앙 정렬 */
+    margin: 25px auto; /* 상단 여백과 화면 가운데에 위치 */
+  }
+
+  .button {
+    background-color: #b0c7e2; /* 배경색 */
+    color: black; /* 글자 색 */
+    border: transparent; /* 테두리 색 */
+    padding: 10px 20px; /* 버튼 안쪽 여백 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    font-size: 20px; /* 글자 크기 */
+    font-family: 'Arial', sans-serif; /* 글꼴 */
+    text-align: center;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .button:hover {
+    background-color: #a0b7d2;
+  }
+  /*ボタンのCSS　end*/
+
+  /*社員一覧CSS start*/
+  .header-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* 왼쪽 정렬로 변경 */
+    margin-bottom: 5px; /* 테이블과 가까이 배치 */
+    margin-left: 500px; /* 件数 위치를 退社日 위로 이동 */
+    font-size: 14px;
+  }
+  .header-info span {
+    margin-right: 10px; /* 件数와 숫자 사이 간격 조정 */
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 12px;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+  }
+  th {
+    background-color: #d9e5f4;
+  }
+  .blue-link {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  /*社員一覧CSS end*/
+</style>
+
+<body>
+  <header>
+    <div class="left-section">
+      <div class="company-name-jp">株式会社ブライトスター</div>
+      <div class="company-name-en">BRIGHT STAR CO. LTD.</div>
+    </div>
+    <div class="center-section">社内統合管理システム</div>
+    <div class="right-section">
+      <img src="/" alt="Bright Star logo" />
+    </div>
+  </header>
+  <br />
+  ■ 検索条件
+  <div class="form-container">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="company">所属会社</label>
+            <select id="company" name="company">
+              <option value="all">全て</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="name">社員名</label>
+        <input type="text" id="name" name="name" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="occupation">職業分類</label>
+        <select id="occupation" name="occupation">
+          <option value="it_engineer">ITエンジニア</option>
+        </select>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="current_employee" name="current_employee" />
+        <label for="current_employee">在職</label>
+        <input type="checkbox" id="retired_employee" name="retired_employee" />
+        <label for="retired_employee">非在職</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <form th:action="@{/syain/syain_read}" method="get">
+      <button type="submit" class="button">検　　　索</button>
+    </form>
+  </div>
+
+  <br />
+
+  ■ 検索条件
+  <div class="header-info">
+    <span style="margin-left: auto;">件数：</span>
+    <span style="margin-left: auto;"><a th:href="@{/syain/syain_write}" class="blue-link">新規登録</a></span>
+  </div>
+
+  <table>
+    <thead>
+    <tr>
+      <th>所属会社</th>
+      <th>社員名</th>
+      <th>性別</th>
+      <th>職業種類</th>
+      <th>入社日</th>
+      <th>退社日</th>
+      <th>編集</th>
+    </tr>
+    </thead>
+    <tbody th:each="syain:${slist}" class="list">
+    <tr>
+      <td th:text="${syain.syozokuKaisya == 1 ? '株式会社ブライトスター' : '株式会社トップクラウド'}"></td>
+      <td th:text="${syain.firstNameKanji}"></td>
+      <td th:text="${syain.seibetu == 1 ? '男' : '女'}"></td>
+      <td th:text="${syain.syokugyoKind == 1 ? '役員' :
+                     syain.syokugyoKind == 2 ? '総務' :
+                     syain.syokugyoKind == 3 ? 'IT営業' :
+                     syain.syokugyoKind == 4 ? 'ITエンジニア' :
+                     syain.syokugyoKind == 5 ? '不動産スタッフ' :
+                     syain.syokugyoKind == 6 ? '個人事業主' :''}"></td>
+      <td th:text="${syain.nyuusyaDate}"></td>
+      <td th:text="${syain.taisyaDate}"></td>
+      <td>
+
+        <a th:href="|syain_update?syainId=${syain.syainId}|">更新</a>
+<!--        <a th:href="@{|/syain_update?syainId=${syain.syainId}|}">更新</a>-->
+
+
+        <br />
+
+        <form th:action="@{/syain_delete}" method="post" style="display:inline;">
+          <input type="hidden" name="syainId" th:value="${syain.syainId}"/>
+          <button type="submit" class="blue-link" style="background:none; border:none; color:blue; cursor:pointer;">削除</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+<!--  <p>Current Syain ID: <span th:text="${syain.syainId}"></span></p>-->
+
+
+</body>
+
+</html>

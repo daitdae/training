@@ -1,0 +1,24 @@
+#localhost:8081
+server:
+  port: 8081
+
+#DBについての情報はDataSourceConfig.javaにて設定を行う
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.kyh.system.domain #domain class
+
+#pagehelper
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: aaa12345!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+

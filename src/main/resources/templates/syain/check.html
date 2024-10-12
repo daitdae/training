@@ -1,0 +1,44 @@
+이건 수정하는 코드인데 수정이 안돼 그리고 주소창을 보면 syainId를 못가져와
+이유와 수정방법을 알려줘
+
+컨트롤러
+@GetMapping("/syain_update")
+public String update(@RequestParam("syainId") int syainId, Model model) {
+SyainVO syain = (SyainVO) syainservice.selectOne(syainId);
+model.addAttribute("syain", syain);
+return "syain/syain_update";
+}
+
+@PostMapping("/syain_update")
+public String update(SyainVO update){
+syainservice.update(update);
+return "redirect:/syain/syain_read";
+}
+
+서비스
+public int update(SyainVO syain){
+int n = syaindao.update(syain);
+return n;
+}
+
+dao
+public int update(SyainVO update);
+
+mapper
+<update id="update" parameterType="com.kyh.system.domain.SyainVO">
+    UPDATE
+    SYAIN_MAIN
+    SET
+    SYOZOKU_KAISYA      = #{syozokuKaisya}
+    , FIRST_NAME_KANJI  = #{firstNameKanji}
+    , SEIBETU           = #{seibetu}
+    , SYOKUGYO_KIND     = #{syokugyoKind}
+    , NYUUSYA_DATE      = #{nyuusyaDate}
+    , TAISYA_DATE       = #{taisyaDate}
+    WHERE
+    syainId = #{syainId}
+</update>
+
+update페이지로 가는 경로 html
+<a th:href="|syain_update?syainId=${syain.syainId}|">更新</a>
+

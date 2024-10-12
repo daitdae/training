@@ -1,0 +1,101 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kyh.system.mapper.SyainDAO">
+
+    <insert id="insert" parameterType="com.kyh.system.domain.SyainVO">
+        insert into SYAIN_MAIN (
+                                 EMPLOYEECODE
+                               , FIRST_NAME_KANJI
+                               , LAST_NAME_KANJI
+                               , SEIBETU
+                               , SYOZOKU_KAISYA
+                               , NYUUSYA_DATE
+                               , TAISYA_DATE
+                               , SYOKUGYO_KIND
+                               , KINYUKIKAN_CODE
+                               , KINYUKIKAN_NAME
+                               , SITEN_CODE
+                               , SITEN_NAME
+                               , KOUZA_KIND
+                               , KOUZA_NUM
+                               , MEIGI_NAME
+                               , IT_OS
+                               , IT_BIKOU
+        )
+        values (
+               #{employeeCode}
+               , #{firstNameKanji}
+               , #{lastNameKanji}
+               , #{seibetu}
+               , #{syozokuKaisya}
+               , #{nyuusyaDate}
+               , #{taisyaDate}
+               , #{syokugyoKind}
+               , #{kinyukikanCode}
+               , #{kinyukikanName}
+               , #{sitenCode}
+               , #{sitenName}
+               , #{kouzaKind}
+               , #{kouzaNum}
+               , #{meigiName}
+               , #{itOs}
+               , #{itBikou}
+               )
+    </insert>
+
+    <!-- read list all-->
+    <select id="list" resultType="com.kyh.system.domain.SyainVO">
+        SELECT
+#           table 컬럼명 as 필드명
+            SYOZOKU_KAISYA AS syozokuKaisya
+            , FIRST_NAME_KANJI AS firstNameKanji
+            , SEIBETU AS seibetu
+            , SYOKUGYO_KIND AS syokugyoKind
+            , NYUUSYA_DATE AS nyuusyaDate
+            , TAISYA_DATE AS taisyaDate
+        FROM
+            SYAIN_MAIN
+        ORDER BY
+#             SYAIN_ID DESC
+            syainId DESC
+    </select>
+
+    <select id="selectOne" parameterType="int" resultType="com.kyh.system.domain.SyainVO">
+        SELECT
+            SYOZOKU_KAISYA AS syozokuKaisya
+             , FIRST_NAME_KANJI AS firstNameKanji
+             , SEIBETU AS seibetu
+             , SYOKUGYO_KIND AS syokugyoKind
+             , NYUUSYA_DATE AS nyuusyaDate
+             , TAISYA_DATE AS taisyaDate
+        FROM SYAIN_MAIN
+        WHERE syainId = #{syainId}
+    </select>
+
+    <!-- update syain-->
+    <update id="update" parameterType="com.kyh.system.domain.SyainVO">
+        UPDATE
+            SYAIN_MAIN
+        SET
+            SYOZOKU_KAISYA      = #{syozokuKaisya}
+            , FIRST_NAME_KANJI  = #{firstNameKanji}
+            , SEIBETU           = #{seibetu}
+            , SYOKUGYO_KIND     = #{syokugyoKind}
+            , NYUUSYA_DATE      = #{nyuusyaDate}
+            , TAISYA_DATE       = #{taisyaDate}
+        WHERE
+            syainId = #{syainId}
+    </update>
+
+    <!-- 직원 정보 삭제 쿼리 -->
+    <delete id="delete" parameterType="int">
+        DELETE
+        FROM
+            SYAIN_MAIN
+        WHERE
+            syainId = #{syainId}
+    </delete>
+
+</mapper>
